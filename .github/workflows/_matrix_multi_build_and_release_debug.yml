@@ -12,8 +12,8 @@ jobs:
       matrix:
         os_id: [alpine]
         os_version_id: [edge]
-        arch_type: [x86_64, armhf, armv7, aarch64]
-        libtorrent_version: ["1.2", "2.0"]
+        arch_type: [x86_64]
+        libtorrent_version: ["1.2"]
         build_tool: ["", cmake]
         qbt_build_debug: [true]
         include:
@@ -24,9 +24,6 @@ jobs:
           - build_tool: "cmake"
             qbt_qt_version_name: ""
             qbt_qt_version: "6"
-
-          - libtorrent_version: "2.0"
-            preview_release: false
 
           - libtorrent_version: "1.2"
             preview_release: true
