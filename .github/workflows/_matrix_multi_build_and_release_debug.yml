@@ -15,7 +15,7 @@ jobs:
         arch_type: [x86_64]
         libtorrent_version: ["1.2"]
         build_tool: ["", cmake]
-        qbt_build_debug: [true]
+        qbt_build_debug: [yes]
         include:
           - build_tool: ""
             qbt_qt_version_name: "qt5-"
