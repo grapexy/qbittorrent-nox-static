@@ -14,13 +14,9 @@ jobs:
         os_version_id: [edge]
         arch_type: [x86_64]
         libtorrent_version: ["1.2"]
-        build_tool: ["", cmake]
-        qbt_build_debug: [yes]
+        build_tool: [cmake]
+        qbt_build_debug: [no, yes]
         include:
-          - build_tool: ""
-            qbt_qt_version_name: "qt5-"
-            qbt_qt_version: "5"
-
           - build_tool: "cmake"
             qbt_qt_version_name: ""
             qbt_qt_version: "6"
@@ -28,11 +24,11 @@ jobs:
           - libtorrent_version: "1.2"
             preview_release: true
 
-    name: "${{ matrix.arch_type }}-${{ matrix.qbt_qt_version_name }}libtorrent-v${{ matrix.libtorrent_version }}"
+    name: "${{ matrix.arch_type }}-debug_${{ matrix.qbt_build_debug }}-${{ matrix.qbt_qt_version_name }}libtorrent-v${{ matrix.libtorrent_version }}"
 
     env:
       build_dir: "qbt-build"
-      name: "${{ matrix.arch_type }}-${{ matrix.qbt_qt_version_name }}libtorrent-v${{ matrix.libtorrent_version }}"
+      name: "${{ matrix.arch_type }}-debug_${{ matrix.qbt_build_debug }}-${{ matrix.qbt_qt_version_name }}libtorrent-v${{ matrix.libtorrent_version }}"
 
     steps:
       - uses: actions/checkout@v3
@@ -107,13 +103,13 @@ jobs:
         run: docker exec -w /root multiarch bash qbittorrent-nox-static.sh qbittorrent
 
       - name: Docker - "Set release asset name"
-        run: docker exec -w /root/${{ env.build_dir }}/completed multiarch mv -f qbittorrent-nox ${{ matrix.arch_type }}-${{ matrix.qbt_qt_version_name }}qbittorrent-nox
+        run: docker exec -w /root/${{ env.build_dir }}/completed multiarch mv -f qbittorrent-nox ${{ matrix.arch_type }}-debug_${{ matrix.qbt_build_debug }}-${{ matrix.qbt_qt_version_name }}qbittorrent-nox
 
       - name: Host- Create release - tag - assets
         uses: ncipollo/release-action@v1
         with:
           prerelease: "${{ matrix.preview_release }}"
-          artifacts: "${{ env.build_dir }}/completed/${{ matrix.arch_type }}-${{ matrix.qbt_qt_version_name }}qbittorrent-nox,${{ env.build_dir }}/release_info/dependency-version.json"
+          artifacts: "${{ env.build_dir }}/completed/${{ matrix.arch_type }}-debug_${{ matrix.qbt_build_debug }}-${{ matrix.qbt_qt_version_name }}qbittorrent-nox,${{ env.build_dir }}/release_info/dependency-version.json"
           replacesArtifacts: true
           tag: "${{ env.release_tag }}"
           name: "${{ env.release_title }}"
