@@ -24,10 +24,10 @@ jobs:
           - libtorrent_version: "1.2"
             preview_release: true
 
-          - qbt_build_debug: "yes"
+          - qbt_build_debug: yes
             qbt_debug_tag: "-debug"
 
-          - qbt_build_debug: "no"
+          - qbt_build_debug: no
             qbt_debug_tag: ""
 
     name: "${{ matrix.arch_type }}${{ qbt_debug_tag }}-${{ matrix.qbt_qt_version_name }}libtorrent-v${{ matrix.libtorrent_version }}"
