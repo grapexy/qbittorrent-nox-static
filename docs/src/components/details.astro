@@ -1,0 +1,48 @@
+---
+const { class: className, summary } = Astro.props;
+---
+
+<div>
+	<details>
+		<summary>{summary}</summary>
+		<div>
+			<slot />
+		</div>
+	</details>
+</div>
+
+<style>
+	details {
+		background-color: var(--details-2) !important;
+		border-left: 2px solid var(--details-2);
+		border-bottom: 2px solid var(--details-2);
+	}
+
+	details summary {
+		background-color: var(--details-1) !important;
+		padding: 10px 0px 10px 15px;
+		margin-bottom: 0px;
+	}
+
+	details div {
+		background-color: var(--details-1) !important;
+		margin-top: 2px !important;
+		padding: 5px;
+	}
+
+	details[open] div {
+		animation: details 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+	}
+
+	@keyframes details {
+		0% {
+			opacity: 0;
+			transform: translateY(-1vw);
+		}
+
+		100% {
+			opacity: 1;
+			margin-left: 0px;
+		}
+	}
+</style>

@@ -1,31 +1,54 @@
-> [!warning|iconVisibility:hidden|labelVisibility:hidden|style:callout] Supported build platforms are: `Debian Bullseye` - `Ubuntu Focal|Jammy` - `Alpine 3.10 +` - native or via `docker` images
+# Starlight Starter Kit: Basics
 
-> [!tip|iconVisibility:hidden|labelVisibility:hidden|style:callout] The preferred and recommended build platform is Alpine Linux and the recommended method is via docker.
+[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-`qbittorrent-nox` is a build of qBittorrent that does not include the desktop components. Instead it is used via the Linux command line and comes with a built in Qt web interface. The web interface is accessed via a browser.
+```
+npm create astro@latest -- --template starlight
+```
 
-The build process has many independently complex dependencies involved. This build script helps lower the difficulty and makes building `qbittorrent-nox` statically as easy as it can be whilst also supporting multiple architectures, operating systems, dependency variations, optional optimizations and patching options to tune the build.
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/starlight/tree/main/examples/basics)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/starlight/tree/main/examples/basics)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwithastro%2Fstarlight%2Ftree%2Fmain%2Fexamples%2Fbasics&project-name=my-starlight-docs&repository-name=my-starlight-docs)
 
-These are the main dependencies we need to work with in order to build a fully functional and portable static binary for `qbittorrent-nox`.
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-|   Dependencies    |               Links to source                |    Build OS     | Requirements |
-| :---------------: | :------------------------------------------: | :-------------: | :----------: |
-|       bison       |         http://ftp.gnu.org/gnu/bison         |   Debian only   |   required   |
-|       gawk        |         http://ftp.gnu.org/gnu/gawk          |   Debian only   |   required   |
-|       glibc       |         http://ftp.gnu.org/gnu/libc          |   Debian only   |   required   |
-|   zlib/zlib-ng    |     <https://github.com/zlib-ng/zlib-ng>     | Debian + Alpine |   required   |
-|      openssl      |     <https://github.com/openssl/openssl>     | Debian + Alpine |   required   |
-|       iconv       |       http://ftp.gnu.org/gnu/libiconv        | Debian + Alpine |   required   |
-|        icu        |      https://github.com/unicode-org/icu      | Debian + Alpine |   optional   |
-|       boost       |     <https://github.com/boostorg/boost>      | Debian + Alpine |   required   |
-|    libtorrent     |     https://github.com/arvidn/libtorrent     | Debian + Alpine |   required   |
-| double conversion | https://github.com/google/double-conversion  | Debian + Alpine |   required   |
-|      qtbase       |        <https://github.com/qt/qtbase>        | Debian + Alpine |   required   |
-|      qttools      |       <https://github.com/qt/qttools>        | Debian + Alpine |   required   |
-|    qbittorrent    | <https://github.com/qbittorrent/qBittorrent> | Debian + Alpine |   required   |
+## 🚀 Project Structure
 
-> [!note|iconVisibility:hidden|labelVisibility:hidden|style:callout] `ICU` is used by default and is a Qt5/6 dependency.
->
-> `iconv` is a libtorrent v1.2 dependency and also used by Qt in the absence of `ICU`
->
-> `double conversion` is a `Qt6` build dependency
+Inside of your Astro + Starlight project, you'll see the following folders and files:
+
+```
+.
+├── public/
+├── src/
+│   ├── assets/
+│   ├── content/
+│   │   ├── docs/
+│   │   └── config.ts
+│   └── env.d.ts
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
+```
+
+Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+
+Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+
+Static assets, like favicons, can be placed in the `public/` directory.
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).

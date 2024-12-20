@@ -1,0 +1,70 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+
+interface GlossaryEntry {
+	file: string;
+	frontmatter: {
+		title: string;
+	};
+}
+
+interface File {
+	fileBase: string;
+	title: string;
+}
+
+const basePath = `/${Astro.url.pathname.split("/")[1]}`;
+
+// Get all markdown files
+const posts = import.meta.glob<GlossaryEntry>(
+	"/src/content/docs/glossary/*.md",
+	{
+		eager: true,
+	}
+);
+
+// Convert posts object to array and map to File[]
+const files: File[] = Object.entries(posts).map(([path, post]) => {
+	const fileBase = path.split("/").pop()?.split(".").shift() ?? "";
+	return {
+		fileBase,
+		title: post.frontmatter.title,
+	};
+});
+
+// Group files by first letter
+const sections = files.reduce((acc: { [key: string]: File[] }, file) => {
+	const firstLetter = file.title.charAt(0).toUpperCase();
+	if (!acc[firstLetter]) {
+		acc[firstLetter] = [];
+	}
+	acc[firstLetter].push(file);
+	return acc;
+}, {});
+
+// Generate headings for each section
+const headings = Object.entries(sections)
+	.sort(([a], [b]) => a.localeCompare(b))
+	.map(([slug]) => ({
+		depth: 2,
+		slug,
+		text: slug,
+	}));
+---
+
+<StarlightPage frontmatter={{ title: "Glossary" }} headings={headings}>
+	{
+		Object.entries(sections).map(([sectionTitle, files]: [string, File[]]) => (
+			<>
+				<h2 id={sectionTitle}>{sectionTitle}</h2>
+				<ul>
+					{files.map(({ fileBase, title }: File) => (
+						<li>
+							<a href={`${basePath}/glossary/${fileBase}`}>{title}</a>
+						</li>
+					))}
+				</ul>
+			</>
+		))
+	}
+</StarlightPage>

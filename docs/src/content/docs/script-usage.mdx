@@ -1,0 +1,52 @@
+---
+title: Script Usage
+hide_title: true
+---
+
+import { Advanced, Charts, Details, Modal, Steps, Tabs, TabItem, Card, CardGrid, LinkCard, Aside, Icon } from "/src/components/global.jsx"
+
+:::caution[Assumptions]
+The guide will assume you are using docker, with example commands that are either one liners or from within the container.
+:::
+
+:::danger
+Don't run this directly on the host system unless you know what you are doing. It's not recommended and the build will probably fail.
+:::
+
+<Details summary="What to expect">![](/qbittorrent-nox-static/docs_images/script_usage/first-run.png)</Details>
+
+⭐ When you are familiar with the script you can do most builds you want with a one liner. It's pretty simple to use.
+
+### Execute the script
+
+```bash
+./qbittorrent-nox-static.sh
+```
+
+:::note
+Please see the [switches and flags summary](./build-help?id=switches-and-flags-summarised) to see what options you can pass and how to use them
+:::
+
+The first thing you should do is to run the script with the `-h` flag to see the help output and the script defaults.
+
+```bash
+./qbittorrent-nox-static.sh -h
+```
+
+By passing `all` as the first argument, you can build everything based on the default settings.
+
+```bash
+./qbittorrent-nox-static.sh all
+```
+
+For example, to use `ICU` using `-i`, optimise for the host system CPU using `-o`, `-s` to strip the binary and build using libtorrent v1.2.19
+
+```bash
+./qbittorrent-nox-static.sh all -i -o -s -lt v1.2.19
+```
+
+Same as previous command but using `env` settings
+
+```bash
+qbt_libtorrent_tag="v1.2.19" qbt_skip_icu="yes" qbt_optimise_strip="yes" qbt_optimize="-march=native" ./qbittorrent-nox-static.sh all
+```

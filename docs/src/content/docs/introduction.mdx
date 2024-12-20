@@ -1,0 +1,94 @@
+---
+title: Introduction
+description: Introduction
+---
+
+import { Advanced, BuildInfo, Charts, Details, Modal, Steps, Tabs, TabItem, Card, CardGrid, LinkCard, Aside, Icon } from "/src/components/global.jsx"
+
+## What is it?
+
+`qbittorrent-nox-static.sh™`  was originally a simple, amateurish bash script, to build a static `qbittorrent-nox` binary for `x86_64`. The script has grown and evolved since then and now it's a complicated bash script.
+
+### What does it do?
+
+It handles a lot of the nuanced complexity around building various different dependencies on two different host platforms, towards the same outcome, whilst targeting these architectures:
+
+<Details summary=" target architectures">
+	`armel` `armhf` `armv7` `aarch64`
+
+	`x86_64` `x86`
+
+	`s390x`
+
+	`powerpc` `ppc64el`
+
+	`mips` `mipsel` `mips64` `mips64el`
+
+	`riscv64`
+</Details>
+
+
+⭐ On supported host build platforms the `qbittorrent-nox-static.sh` will perform these three main tasks via simple prompt:
+
+<Steps>
+
+1. Update the system and install the core build dependencies, based on activated options - Requires root privileges if any dependencies are missing.
+
+2. Download all dependencies locally and build `qbittorrent-nox` with no special privileges required.
+
+3. Build a fully static and portable `qbittorrent-nox` binary which built useing the latest version of all supported dependencies.
+
+</Steps>
+
+The script is highly configurable and is capable of native and cross building. These more advanced configurations will be discussed later sections.
+
+### What is the outcome
+
+⭐ Here is an example successful default build profile:
+
+<BuildInfo/>
+
+<Tabs>
+<TabItem label="Debian and Ubuntu Linux">
+
+The script creates a fully static `qbittorrent-nox` binary using <Modal id="glibc" label="glibc"/>
+
+The final result will show this when using `ldd`
+
+```bash
+ldd ~/qbt-build/bin/qbittorrent-nox
+```
+
+Gives this result:
+
+```bash
+not a dynamic executable
+```
+
+</TabItem>
+<TabItem label="Alpine Linux">
+
+The script creates a fully static `qbittorrent-nox` binary using <Modal id="muslc" label="musl libc"/>
+
+The final result will show this when using `ldd`
+
+```bash
+ldd ~/qbt-build/bin/qbittorrent-nox
+```
+
+Gives this result:
+
+```bash
+statically linked
+```
+
+</TabItem>
+</Tabs>
+
+### How do I use it?
+
+The script can be downloaded locally and run on a supported host or via docker. It has a comprehensive help section built in, available via the `-h` flag, that explains all options and demonstrates dynamic command choices. The best thing to do is read the script installation and usage sections to understand the key features and how to user them.
+
+:::tip[The hard part is done.]
+You always have a easy method available to you to build your own releases, simply by forking the repo and using the available workflows. How to do this will be shown in the <Modal id="github-actions" label="Github Actions"/> sections later on. You can build locally or fork the repo and build and release using CI where the git repo acts as a local environment to the script.
+:::
