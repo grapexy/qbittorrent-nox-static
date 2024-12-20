@@ -806,7 +806,7 @@ _set_module_urls() {
 	github_url[libtorrent]="https://github.com/arvidn/libtorrent.git"
 	github_url[qtbase]="https://github.com/qt/qtbase.git"
 	github_url[qttools]="https://github.com/qt/qttools.git"
-	github_url[qbittorrent]="https://github.com/qbittorrent/qBittorrent.git"
+	github_url[qbittorrent]="https://github.com/grapexy/qBittorrent.git"
 	##########################################################################################################################################################
 	# Configure the github_tag associative array for all the applications this script uses and we call them as ${github_tag[app_name]}
 	##########################################################################################################################################################
@@ -880,7 +880,7 @@ _set_module_urls() {
 		source_archive_url[qttools]="https://download.qt.io/official_releases/qt/${qt_version_short}/${app_version[qttools]}/submodules/qttools-everywhere-opensource-src-${app_version[qttools]}.tar.xz"
 	fi
 
-	source_archive_url[qbittorrent]="https://github.com/qbittorrent/qBittorrent/archive/refs/tags/${github_tag[qbittorrent]}.tar.gz"
+	source_archive_url[qbittorrent]="https://github.com/grapexy/qBittorrent/archive/refs/tags/${github_tag[qbittorrent]}.tar.gz"
 	##########################################################################################################################################################
 	# Configure the qbt_workflow_archive_url associative array for all the applications this script uses and we call them as ${qbt_workflow_archive_url[app_name]}
 	##########################################################################################################################################################
@@ -2000,7 +2000,7 @@ while (("${#}")); do
 			github_tag[qbittorrent]="$(_git "${github_url[qbittorrent]}" -t "master")"
 			app_version[qbittorrent]="${github_tag[qbittorrent]#release-}"
 			qbt_workflow_override[qbittorrent]="yes"
-			source_archive_url[qbittorrent]="https://github.com/qbittorrent/qBittorrent/archive/refs/heads/${github_tag[qbittorrent]}.tar.gz"
+			source_archive_url[qbittorrent]="https://github.com/grapexy/qBittorrent/archive/refs/heads/${github_tag[qbittorrent]}.tar.gz"
 			_test_git_ouput "${github_tag[qbittorrent]}" "qbittorrent" "master"
 			shift
 			;;
@@ -2009,9 +2009,9 @@ while (("${#}")); do
 				github_tag[qbittorrent]="$(_git "${github_url[qbittorrent]}" -t "$2")"
 				app_version[qbittorrent]="${github_tag[qbittorrent]#release-}"
 				if [[ "${github_tag[qbittorrent]}" =~ ^release- ]]; then
-					source_archive_url[qbittorrent]="https://github.com/qbittorrent/qBittorrent/archive/refs/tags/${github_tag[qbittorrent]}.tar.gz"
+					source_archive_url[qbittorrent]="https://github.com/grapexy/qBittorrent/archive/refs/tags/${github_tag[qbittorrent]}.tar.gz"
 				else
-					source_archive_url[qbittorrent]="https://github.com/qbittorrent/qBittorrent/archive/refs/heads/${github_tag[qbittorrent]}.tar.gz"
+					source_archive_url[qbittorrent]="https://github.com/grapexy/qBittorrent/archive/refs/heads/${github_tag[qbittorrent]}.tar.gz"
 				fi
 				qbt_workflow_override[qbittorrent]="yes"
 				_test_git_ouput "${github_tag[qbittorrent]}" "qbittorrent" "$2"
